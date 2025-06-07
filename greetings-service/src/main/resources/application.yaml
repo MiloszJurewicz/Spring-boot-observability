@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: "greetingsservice"
+
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health,info,prometheus
+#  endpoint:
+#    prometheus:
+#      access: read_only
+#  prometheus:
+#    metrics:
+#      export:
+#        enabled: true
+#server:
+#  port: 8080
