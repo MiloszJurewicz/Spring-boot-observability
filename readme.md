@@ -1,3 +1,11 @@
+TODO
+- gather logs otel style, add loki
+- Add recepies for running everything
+- Update Readme
+
+
+
+
 ## Premise
 
 I was interested in checking out how can telemetry data be gathered from spring boot application. 
