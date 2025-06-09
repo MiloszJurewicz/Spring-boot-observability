@@ -13,8 +13,27 @@ services:
       - OTEL_JAVAAGENT_ENABLED=true
       - OTEL_METRIC_EXPORT_INTERVAL=15000
        # If using buildpack it disables metrics and logs. We want metrics, so we need to explicitly enable them
-      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_METRICS_EXPORTER=none
+      - OTEL_LOGS_EXPORTER=none
       - OTEL_SERVICE_NAME=greetings-app
+
+  caller-service:
+    image: caller-service:0.0.1
+    build:
+      context: .
+    ports:
+      - "8081:8081"
+    depends_on:
+      - otel-collector
+    environment:
+      - GREETINGS_SERVICE_URL=http://greetings-service:8080
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
+      # Required by buildpack.
+      - OTEL_JAVAAGENT_ENABLED=true
+      - OTEL_METRIC_EXPORT_INTERVAL=15000
+      - OTEL_METRICS_EXPORTER=none
+      - OTEL_LOGS_EXPORTER=none
+      - OTEL_SERVICE_NAME=caller-app
 
   otel-collector:
     image: otel/opentelemetry-collector-contrib:latest
@@ -54,8 +73,6 @@ services:
       - "4317" # otlp grpc
     depends_on:
       - init
-
-
 
   grafana:
     image: grafana/grafana:latest

@@ -30,8 +30,16 @@ service:
         - otlp
     traces:
       exporters:
-        - debug
         - otlp
+        - debug
+      processors:
+        - batch
+      receivers:
+        - otlp
+        - otlp
+    logs:
+      exporters:
+        - debug
       processors:
         - batch
       receivers:

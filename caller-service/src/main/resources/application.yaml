@@ -1,0 +1,8 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: caller-service
+
+greetings-service: ${GREETINGS_SERVICE_URL:http://localhost:8081}
